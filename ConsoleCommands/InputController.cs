@@ -7,7 +7,7 @@
 // File Name: InputController.cs
 // 
 // Current Data:
-// 2020-06-16 9:41 AM
+// 2020-06-16 9:48 AM
 // 
 // Creation Date:
 // 2020-06-16 9:40 AM
@@ -30,7 +30,7 @@ namespace ConsoleCommands
       _commandFactory = commandFactory;
     }
 
-    private void Parse(in string? input)
+    private static (string, string[]) Parse(in string? input)
     {
       if (input is null)
       {
@@ -39,13 +39,28 @@ namespace ConsoleCommands
 
       if (string.IsNullOrWhiteSpace(input))
       {
-        return;
+        return ("", new string[] { });
       }
 
       var split = Regex.Split(input.Trim(), @"\s+");
       var command = split[0].ToLowerInvariant();
       var args = split.Skip(1).ToArray();
 
+      return (command, args);
+    }
+
+    public void AcceptCommand()
+    {
+      var input = AwaitInput();
+      var (command, args) = Parse(input);
+      if (!string.IsNullOrWhiteSpace(command))
+      {
+        ExecuteCommand(command, args);
+      }
+    }
+
+    private void ExecuteCommand(string command, string[] args)
+    {
       try
       {
         if (_commandFactory.Contains(command))
@@ -61,12 +76,6 @@ namespace ConsoleCommands
       {
         Console.WriteLine(e.Message + Environment.NewLine);
       }
-    }
-
-    public void AcceptCommand()
-    {
-      var input = AwaitInput();
-      Parse(input);
     }
 
     private static string? AwaitInput()
