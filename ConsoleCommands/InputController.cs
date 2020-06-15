@@ -7,10 +7,10 @@
 // File Name: InputController.cs
 // 
 // Current Data:
-// 2020-06-16 8:52 AM
+// 2020-06-16 9:41 AM
 // 
 // Creation Date:
-// 2020-06-16 8:00 AM
+// 2020-06-16 9:40 AM
 
 #endregion
 
@@ -37,20 +37,25 @@ namespace ConsoleCommands
         throw new ArgumentNullException(nameof(input));
       }
 
-      var commands = Regex.Split(input.Trim(), @"\s+");
+      if (string.IsNullOrWhiteSpace(input))
+      {
+        return;
+      }
+
+      var split = Regex.Split(input.Trim(), @"\s+");
+      var command = split[0].ToLowerInvariant();
+      var args = split.Skip(1).ToArray();
 
       try
       {
-        var command = commands[0].ToLowerInvariant();
         if (_commandFactory.Contains(command))
         {
-          var consoleCommand = _commandFactory.Create(commands[0].ToLowerInvariant());
-          consoleCommand.Execute(commands.Skip(1).ToArray());
+          var consoleCommand = _commandFactory.Create(command);
+          consoleCommand.Execute(args);
+          return;
         }
-        else
-        {
-          Console.WriteLine($"No command named \"{commands[0]}\" exists." + Environment.NewLine);
-        }
+
+        Console.WriteLine($"No command named \"{command}\" exists." + Environment.NewLine);
       }
       catch (ConsoleCommandException e)
       {
