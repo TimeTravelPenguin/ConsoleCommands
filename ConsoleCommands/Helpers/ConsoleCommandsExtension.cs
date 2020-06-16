@@ -7,7 +7,7 @@
 // File Name: ConsoleCommandsExtension.cs
 // 
 // Current Data:
-// 2020-06-16 8:09 AM
+// 2020-06-16 2:10 PM
 // 
 // Creation Date:
 // 2020-06-16 8:02 AM
@@ -25,7 +25,7 @@ namespace ConsoleCommands.Helpers
   {
     public static Type? GetWithAlias(this string alias)
     {
-      var aliasCommands = AttributeHelper.GetCommandsWithAttribute<CommandAliasAttribute>();
+      var aliasCommands = AttributeHelper.GetTypesWithAttribute<CommandAliasAttribute>();
 
       return aliasCommands.FirstOrDefault(command => Attribute
         .GetCustomAttributes(command, typeof(CommandAliasAttribute))

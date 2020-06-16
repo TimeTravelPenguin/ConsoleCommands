@@ -1,5 +1,20 @@
-﻿using System.Reflection;
-using System.Runtime.CompilerServices;
+﻿#region Title Header
+
+// Name: Phillip Smith
+// 
+// Solution: ConsoleCommands
+// Project: DemoConsole
+// File Name: AssemblyInfo.cs
+// 
+// Current Data:
+// 2020-06-16 2:10 PM
+// 
+// Creation Date:
+// 2020-06-16 8:08 AM
+
+#endregion
+
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following

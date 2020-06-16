@@ -7,15 +7,14 @@
 // File Name: CommandShell.cs
 // 
 // Current Data:
-// 2020-06-16 8:16 AM
+// 2020-06-16 2:10 PM
 // 
 // Creation Date:
-// 2020-06-16 8:02 AM
+// 2020-06-16 9:40 AM
 
 #endregion
 
 using System;
-using System.Text;
 using ConsoleCommands.CommandAttributes;
 using ConsoleCommands.Helpers;
 
@@ -28,16 +27,9 @@ namespace ConsoleCommands
 
     private CommandShell()
     {
-      Console.OutputEncoding = Encoding.UTF8;
-
       _controller = new InputController(_commandFactory);
 
       CreateCommands();
-    }
-
-    public void AddCommand<TCommand>(string commandName) where TCommand : IConsoleCommand
-    {
-      _commandFactory.Register<TCommand>(commandName);
     }
 
     public static CommandShell Run()
@@ -52,7 +44,7 @@ namespace ConsoleCommands
 
     private void CreateCommands()
     {
-      var commandAttributes = AttributeHelper.GetCommandsWithAttribute<CommandAliasAttribute>();
+      var commandAttributes = AttributeHelper.GetTypesWithAttribute<CommandAliasAttribute>();
       foreach (var command in commandAttributes)
       {
         var aliasAttributes = Attribute.GetCustomAttributes(command, typeof(CommandAliasAttribute));

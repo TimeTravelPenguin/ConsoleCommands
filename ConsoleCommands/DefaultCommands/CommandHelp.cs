@@ -7,10 +7,10 @@
 // File Name: CommandHelp.cs
 // 
 // Current Data:
-// 2020-06-16 8:17 AM
+// 2020-06-16 2:10 PM
 // 
 // Creation Date:
-// 2020-06-16 8:17 AM
+// 2020-06-16 9:40 AM
 
 #endregion
 
@@ -28,15 +28,27 @@ namespace ConsoleCommands.DefaultCommands
   {
     public void Execute(params string[] args)
     {
+      // TODO help commands & add reserved words
       Console.WriteLine();
 
+      string? commandName;
       if (args.Length == 0)
       {
-        Console.WriteLine("Use \"help <command>\" to see more information about the command." + Environment.NewLine);
-        return;
+        commandName = Attribute.GetCustomAttributes(typeof(CommandHelp), typeof(CommandAliasAttribute))
+          .Cast<CommandAliasAttribute>()
+          .FirstOrDefault()
+          ?.OverrideAlias;
+
+        if (commandName is null)
+        {
+          return;
+        }
+      }
+      else
+      {
+        commandName = args[0];
       }
 
-      var commandName = args[0];
 
       // Find command with same alias
       var aliases = commandName.GetWithAlias();

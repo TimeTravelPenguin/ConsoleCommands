@@ -7,7 +7,7 @@
 // File Name: CommandFactory.cs
 // 
 // Current Data:
-// 2020-06-16 8:09 AM
+// 2020-06-16 2:10 PM
 // 
 // Creation Date:
 // 2020-06-16 8:01 AM
@@ -32,7 +32,7 @@ namespace ConsoleCommands
         return _registry[commandName].Invoke();
       }
 
-      throw new ConsoleCommandException($"{nameof(commandName)} does not exist", new ArgumentException());
+      throw new ConsoleCommandException($"The key \"{commandName}\" does not exist", new ArgumentException());
     }
 
     public bool Contains(string commandName)
@@ -44,7 +44,7 @@ namespace ConsoleCommands
     {
       if (_registry.ContainsKey(commandName))
       {
-        throw new ConsoleCommandException($"{nameof(commandName)} already exists", new ArgumentException());
+        throw new ConsoleCommandException($"The key \"{commandName}\" already exists", new ArgumentException());
       }
 
       if (!typeof(IConsoleCommand).IsAssignableFrom(consoleCommandType))

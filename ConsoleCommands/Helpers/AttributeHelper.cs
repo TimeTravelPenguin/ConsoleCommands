@@ -7,7 +7,7 @@
 // File Name: AttributeHelper.cs
 // 
 // Current Data:
-// 2020-06-16 8:09 AM
+// 2020-06-16 2:10 PM
 // 
 // Creation Date:
 // 2020-06-16 8:03 AM
@@ -23,22 +23,29 @@ namespace ConsoleCommands.Helpers
 {
   internal static class AttributeHelper
   {
-    public static IEnumerable<Type> GetTypesWithAttribute<TType>(this IEnumerable<Assembly> assemblies)
-      where TType : Attribute
+    /// <summary>
+    ///   Returns a list of all classes as <see cref="Type" /> implementing the attribute <typeparamref name="TAttribute" />.
+    /// </summary>
+    /// <typeparam name="TAttribute"></typeparam>
+    /// <param name="assemblies"></param>
+    /// <returns></returns>
+    public static IEnumerable<Type> GetTypesWithAttribute<TAttribute>(this IEnumerable<Assembly> assemblies)
+      where TAttribute : Attribute
     {
       return assemblies.SelectMany(x => x.GetTypes())
-        .Where(type => type.GetCustomAttributes(typeof(TType), true).Length > 0);
+        .Where(type => type.GetCustomAttributes(typeof(TAttribute), true).Length > 0);
     }
 
-    public static IEnumerable<Type> GetTypesWithAttribute<TType>(this Assembly assembly) where TType : Attribute
+    public static IEnumerable<Type> GetTypesWithAttribute<TAttribute>(this Assembly assembly)
+      where TAttribute : Attribute
     {
       return assembly.GetTypes()
-        .Where(type => type.GetCustomAttributes(typeof(TType), true).Length > 0);
+        .Where(type => type.GetCustomAttributes(typeof(TAttribute), true).Length > 0);
     }
 
-    public static IEnumerable<Type> GetTypesWithAttribute<TType>() where TType : Attribute
+    public static IEnumerable<Type> GetTypesWithAttribute<TAttribute>() where TAttribute : Attribute
     {
-      return GetTypesWithAttribute<TType>(AppDomain.CurrentDomain.GetAssemblies());
+      return GetTypesWithAttribute<TAttribute>(AppDomain.CurrentDomain.GetAssemblies());
     }
 
     public static IEnumerable<Type> GetCommandsWithAttribute<TAttribute>() where TAttribute : Attribute
