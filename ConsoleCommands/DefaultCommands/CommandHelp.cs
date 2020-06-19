@@ -7,7 +7,7 @@
 // File Name: CommandHelp.cs
 // 
 // Current Data:
-// 2020-06-19 5:19 PM
+// 2020-06-19 5:31 PM
 // 
 // Creation Date:
 // 2020-06-16 9:40 AM
@@ -16,7 +16,6 @@
 
 using System;
 using System.Linq;
-using System.Text.RegularExpressions;
 using ConsoleCommands.CommandAttributes;
 using ConsoleCommands.Helpers;
 
@@ -79,7 +78,7 @@ namespace ConsoleCommands.DefaultCommands
           foreach (var use in usage)
           {
             Console.WriteLine("Command syntax:" + Environment.NewLine
-                                                + $"<command> {string.Join(" ", use.Arguments.Select(x => $"<{Regex.Split(x.ToString(), @"\.").Last()}>"))}"
+                                                + $"<command> {string.Join(" ", use.Arguments.Select(x => $"<{x.Name}>"))}"
                                                 + Environment.NewLine);
           }
         }

@@ -22,7 +22,7 @@ namespace ConsoleCommands.CommandAttributes
   [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
   public class CommandUsageAttribute : Attribute
   {
-    public object[] Arguments;
+    public Type[] Arguments;
 
     public CommandUsageAttribute(params Type[] args)
     {
