@@ -7,10 +7,10 @@
 // File Name: CommandUsageAttribute.cs
 // 
 // Current Data:
-// 2020-06-16 8:31 AM
+// 2020-06-19 4:58 PM
 // 
 // Creation Date:
-// 2020-06-16 8:04 AM
+// 2020-06-16 2:10 PM
 
 #endregion
 
@@ -22,13 +22,14 @@ namespace ConsoleCommands.CommandAttributes
   [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
   public class CommandUsageAttribute : Attribute
   {
-    public string[] Arguments;
+    public object[] Arguments;
 
-    public CommandUsageAttribute(params string[] args)
+    public CommandUsageAttribute(params Type[] args)
     {
-      if (args.Any(string.IsNullOrWhiteSpace))
+      // TODO
+      if (args.Any(x => x is null))
       {
-        throw new ArgumentException("Arguments must have a value");
+        throw new ArgumentNullException(nameof(args));
       }
 
       Arguments = args;

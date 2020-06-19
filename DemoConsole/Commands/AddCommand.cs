@@ -7,10 +7,10 @@
 // File Name: AddCommand.cs
 // 
 // Current Data:
-// 2020-06-16 8:55 AM
+// 2020-06-19 5:26 PM
 // 
 // Creation Date:
-// 2020-06-16 8:18 AM
+// 2020-06-16 2:11 PM
 
 #endregion
 
@@ -25,6 +25,7 @@ namespace DemoConsole.Commands
   [CommandAlias("add")]
   [CommandAlias("plus")]
   [CommandAlias("sum")]
+  [CommandUsage(typeof(double[]))]
   [CommandDescription("Adds a sequence of numbers.")]
   public class AddCommand : IConsoleCommand
   {

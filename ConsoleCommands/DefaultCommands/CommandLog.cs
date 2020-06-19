@@ -7,10 +7,10 @@
 // File Name: CommandLog.cs
 // 
 // Current Data:
-// 2020-06-16 8:17 AM
+// 2020-06-19 5:13 PM
 // 
 // Creation Date:
-// 2020-06-16 8:17 AM
+// 2020-06-16 2:11 PM
 
 #endregion
 
@@ -23,6 +23,7 @@ namespace ConsoleCommands.DefaultCommands
   [CommandAlias("log")]
   [CommandAlias("output")]
   [CommandAlias("echo")]
+  [CommandUsage(typeof(string))]
   [CommandDescription("Logs a message to the screen")]
   internal class CommandLog : IConsoleCommand
   {

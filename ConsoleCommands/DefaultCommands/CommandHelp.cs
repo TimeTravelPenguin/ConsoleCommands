@@ -7,7 +7,7 @@
 // File Name: CommandHelp.cs
 // 
 // Current Data:
-// 2020-06-16 2:10 PM
+// 2020-06-19 5:19 PM
 // 
 // Creation Date:
 // 2020-06-16 9:40 AM
@@ -16,6 +16,7 @@
 
 using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 using ConsoleCommands.CommandAttributes;
 using ConsoleCommands.Helpers;
 
@@ -49,7 +50,6 @@ namespace ConsoleCommands.DefaultCommands
         commandName = args[0];
       }
 
-
       // Find command with same alias
       var aliases = commandName.GetWithAlias();
       if (aliases is null)
@@ -72,6 +72,17 @@ namespace ConsoleCommands.DefaultCommands
           .Cast<CommandAliasAttribute>()
           .Select(x => x.OverrideAlias)
           .Any(x => x == commandName);
+
+        // Output usage syntax
+        if (containsAlias && command.HasAttribute<CommandUsageAttribute>(out var usage))
+        {
+          foreach (var use in usage)
+          {
+            Console.WriteLine("Command syntax:" + Environment.NewLine
+                                                + $"<command> {string.Join(" ", use.Arguments.Select(x => $"<{Regex.Split(x.ToString(), @"\.").Last()}>"))}"
+                                                + Environment.NewLine);
+          }
+        }
 
         // Output description
         if (containsAlias && command.HasAttribute<CommandDescriptionAttribute>(out var descriptions))
